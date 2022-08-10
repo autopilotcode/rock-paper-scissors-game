@@ -1,4 +1,4 @@
-const startGameBtn = document.getElementById('start-game-btn');
+const startGameBtn = document.getElementById("start-game-btn");
 
 // const start = function() {
 //     console.log('The game is starting...');
@@ -7,12 +7,12 @@ const startGameBtn = document.getElementById('start-game-btn');
 //     greet: function greet() {
 //         console.log('Hello there!');
 //     }
-// };                                                          //functions can be stored in an object
+// };                       //functions can be stored in an object
 // person.greet();
-//                                                               //startGame();  direct execution
+//                          //startGame();  direct execution
 // console.dir(start);
-//startGameBtn.addEventListener('click', start);                            //indirect execution
- 
-startGameBtn.addEventListener('click', function start() {
-    console.log('The game is starting...');
+//startGameBtn.addEventListener('click', start);        //indirect execution
+
+startGameBtn.addEventListener("click", function start() {
+  console.log("The game is starting...");
 });
