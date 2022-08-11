@@ -19,6 +19,10 @@ const SCISSORS = "SCISSORS";
 const DEFAULT_USER_CHOICE = ROCK;
 let gameIsRunning = false;
 
+const RESULT_DRAW = "DRAW";
+const RESULT_PLAYER_WINS = "PLAYER_WON";
+const RESULT_COMPUTER_WINS = "COMPUTER_WON";
+
 const getPlayerChoice = function () {
   // const selection = prompt("Rock, Paper or Scissirs?", "");
   const selection = prompt(
@@ -32,6 +36,34 @@ const getPlayerChoice = function () {
   return selection;
 };
 
+const getComputerChoice = function () {
+  const randomValue = Math.random(); //generate value between 0 & 1
+  console.log("randomValue = ", randomValue);
+  if (randomValue < 0.34) {
+    return ROCK;
+  } else if (randomValue < 0.67) {
+    return PAPER;
+  } else {
+    return SCISSORS;
+  }
+};
+
+const getWinner = function (cChoice, pChoice) {
+  if (cChoice === pChoice) {
+    return RESULT_DRAW;
+  } else if (
+    (cChoice === ROCK && pChoice === PAPER) ||
+    (cChoice === SCISSORS && pChoice === ROCK) ||
+    (cChoice === PAPER && pChoice === SCISSORS)
+  ) {
+    {
+      return RESULT_PLAYER_WINS;
+    }
+  } else {
+    return RESULT_COMPUTER_WINS;
+  }
+};
+
 startGameBtn.addEventListener("click", function () {
   if (gameIsRunning) {
     //if true - stop the game
@@ -39,5 +71,13 @@ startGameBtn.addEventListener("click", function () {
   }
   console.log("The game is starting...");
   const playerSelection = getPlayerChoice();
-  console.log(playerSelection);
+  const computerChoice = getComputerChoice();
+  const winner = getWinner(computerChoice, playerSelection);
+  console.log(
+    "computerChoice is:",
+    computerChoice,
+    " - Calculation method is: <0.34=ROCK, <0.67=PAPER, otherwise=SCISSORS"
+  );
+  console.log("playerSelection is:", playerSelection);
+  console.log("winner is:", winner);
 });
