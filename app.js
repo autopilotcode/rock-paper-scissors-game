@@ -28,10 +28,12 @@ const getPlayerChoice = () => {
   const selection = prompt(
     `${ROCK}, ${PAPER} or ${SCISSORS}?`,
     ""
-  ).toUpperCase(); //toUpperCase method
-  if (selection !== ROCK && selection !== PAPER && selection !== SCISSORS) {
+  ).toUpperCase(); //.toUpperCase method
+  if (selection !== ROCK && 
+    selection !== PAPER && 
+    selection !== SCISSORS) {
     alert(`Invalid choice! We chose ${DEFAULT_USER_CHOICE} for you!`);
-    return DEFAULT_USER_CHOICE;
+    return;
   }
   return selection;
 };
@@ -49,12 +51,12 @@ const getComputerChoice = () => {
 };
 
 //arrow function + ternary operator
-const getWinner = (cChoise, pChoice) => 
-  cChoise === pChoice
+const getWinner = (cChoice, pChoice = DEFAULT_USER_CHOICE) =>
+  cChoice === pChoice
     ? RESULT_DRAW
-    : (cChoise === ROCK && pChoice === PAPER) ||
-      (cChoise === SCISSORS && pChoice === ROCK) ||
-      (cChoise === PAPER && pChoice === SCISSORS)
+    : (cChoice === ROCK && pChoice === PAPER) ||
+      (cChoice === SCISSORS && pChoice === ROCK) ||
+      (cChoice === PAPER && pChoice === SCISSORS)
     ? RESULT_PLAYER_WINS
     : RESULT_COMPUTER_WINS;
 
@@ -83,18 +85,27 @@ startGameBtn.addEventListener("click", () => {
   }
   console.log("The game is starting...");
   const playerChoise = getPlayerChoice();
-  const computerChoice = getComputerChoice();
-  let winner = getWinner(computerChoice, playerChoise);
-  let message = `'You picked' ${playerChoise}, 'computer picked' ${computerChoice}, 'therefore you ' `;
-  if (winner = RESULT_DRAW) {
-    message = message + 'had a draw.';
-  } else if (winner = RESULT_PLAYER_WINS) {
-    message = message + 'Won!';
+  const computerChoice = getComputerChoice(); //might be undefined (if incorrect choice)
+  let winner;
+    if (playerChoise) {
+      winner = getWinner(computerChoice, playerChoise);
+    } else {
+      winner = getWinner(computerChoice); //we know that plyaerChoice is undefined
+    }
+
+  //         if playerChoise is truthy use playerChoise otherwise use DEFAULT_USER_CHOICE
+  // let message = `'You picked' ${playerChoise ? playerChoise : DEFAULT_USER_CHOICE}, 'computer picked' ${computerChoice}, 'therefore you ' `;
+  let message = `'You picked' ${playerChoise || DEFAULT_USER_CHOICE}, 'computer picked' ${computerChoice}, 'therefore you ' `;
+
+  if (winner === RESULT_DRAW) {
+    message = message + "had a draw.";
+  } else if (winner === RESULT_PLAYER_WINS) {
+    message = message + "Won!";
   } else {
-    message = message + 'lost.';
+    message = message + "Lost.";
   }
   alert(message);
-  gameIsRunning = false;  //now we can tap to bottom and start a new game
+  gameIsRunning = false; //now we can tap to bottom and start a new game
 
   //my own additional output
   console.log(
