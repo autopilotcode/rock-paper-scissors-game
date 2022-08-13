@@ -116,3 +116,28 @@ startGameBtn.addEventListener("click", () => {
   console.log("playerSelection is:", playerChoise);
   console.log("winner is:", winner);
 });
+
+
+
+//not related to the game (rest operator practice)
+
+let a, b;
+const sumUp = (a, b, ...numbers) => {
+  let sum = 0;
+    for (const num of numbers) {
+      sum += num;
+    } 
+    return sum;
+};
+
+const substractUp = function() {
+  let sum = 0;
+  for (const num of arguments) {  //don't use this
+    sum -= num;
+  }
+  return sum;
+};
+
+console.log(sumUp(1, 5, 10, -3, 6, 10));
+console.log(sumUp(1, 5, 10, -3, 6, 10, 25, 88));
+console.log(substractUp(1, 10, 15, 20));
